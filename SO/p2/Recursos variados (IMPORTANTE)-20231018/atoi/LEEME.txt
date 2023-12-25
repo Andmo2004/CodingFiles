@@ -1,0 +1,2 @@
+La funcion atoi, en el caso de que se pase una cadena que sea un numero, lo que hace es quedarse con cada elemento del array sin incluir el '\0'
+En el caso de que se quiera pasar una cadena de caracteres como por ejemplo "gato" a un entero, la función atoi siempre devuelve 0, porque en el caso de que un elemento del array sea diferente a un nuemero entre 0 y 9 no se tiene en cuenta.

@@ -1,0 +1,7 @@
+add_executable(tv-main tv-main.cc)
+add_library(tv tv.cc tv.h)
+target_link_libraries(tv PUBLIC product)
+target_include_directories(tv PUBLIC ${CMAKE_CURRENT_LIST_DIR})
+target_link_libraries(tv-main PUBLIC tv)
+
+

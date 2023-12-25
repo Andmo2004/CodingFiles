@@ -1,0 +1,5 @@
+add_executable(market-main market-main.cc)
+add_library(market market.cc market.h)
+target_link_libraries(market PUBLIC client seller product)
+target_include_directories(market PUBLIC ${CMAKE_CURRENT_LIST_DIR})
+target_link_libraries(market-main PUBLIC market)
