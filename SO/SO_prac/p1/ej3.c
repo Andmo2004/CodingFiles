@@ -25,28 +25,30 @@ int main(int argc, char** argv)
         for(int i=0; i<num_child; i++)
         {
             pid_t child_pid = fork();
-            switch(child_pid)
-            {
-                case -1: //Error durante la creacion de un nuevo hijo.
-                    perror("fork error");
-                    printf("errno value = %d \n",errno);
-                    exit(EXIT_FAILURE);
-
-                case 0:  //Nuevo hijo creado, ejecuta su proceso.
-                    printf("Soy el hijo %d, y el pid de mi padre es %d\n",getpid(),getppid());
-                    exit(EXIT_SUCCESS);
+    
+            if(child_pid==-1) //Error durante la creacion de un nuevo hijo.
+            { 
+                perror("fork error");
+                printf("errno value = %d \n",errno);
+                exit(EXIT_FAILURE);
             }
 
+            if(child_pid==0) //Nuevo hijo creado, ejecuta su proceso.
+            {  
+                printf("Soy el hijo %d, y el pid de mi padre es %d\n",getpid(),getppid());
+                exit(EXIT_SUCCESS);
+            }
         }
         int status;
         for(int i=0; i<num_child; i++) //Bucle de recogidad de hijos.
         {
             //W_IF_EXITED: Indica si el proceso esta en estado terminado, devuelve true/false.
             //W_EXIT_STATUS: Devuelve el estado de terminación.
+            sleep(i*10);
             wait(&status);
             if(WIFEXITED(status))
             {
-                printf("Proceso hijo %d terminado con estado %d\n", i, WEXITSTATUS(status));
+                printf("Proceso hijo %d terminado con estado %d\n", i+1, WEXITSTATUS(status));
                 //Finalizacion de proceso hijo
             }
             else

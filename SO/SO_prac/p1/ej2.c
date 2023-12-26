@@ -19,39 +19,28 @@ int main(int argc, char** argv)
     }
 
     printf("Proceso padre (ID %d)\n", getpid());
-
+    int status;
     //BUCLE CREACION PROCESOS HIJO:
     for(int i=0; i<num_child; i++)
     {
         pid_t child_pid = fork();
-        switch(child_pid)
-        {
-            case -1:
+
+            if(child_pid==-1)
+            {
                 perror("Error en el fork");
                 printf("Hijo no creado correctamente...\n");
                 exit (EXIT_FAILURE);
-            case 0:
+            }
+            if(child_pid==0)
+            {
                 printf("Soy el hijo %d, y el pid de mi padre es %d\n",getpid(),getppid());
-                return 0;
-        }
+            }
+            else
+            {
+                printf("Esperando a que mi hijo %d termine \n", i+1);
+                wait(&status);
+                printf("El proceso %d ha finalizado, codigo de salida: %d \n", child_pid, WEXITSTATUS(status));
+                exit(EXIT_SUCCESS);
+            }   
     }
-
-    int status;
-    //BUCLE RECOGIDA PROCESOS HIJO:
-    for(int i=0; i<num_child; i++)
-    {
-        wait(&status);
-        if(WIFEXITED(status)){
-            printf("Proceso hijo %d terminado con estado %d\n", i, WEXITSTATUS(status));
-            //Finalizacion de proceso hijo
-        }
-        else
-        {
-            printf("Proceso hijo %d terminado anormalmente\n", i); 
-            //Error al finalizar proceso hijo.
-        }
-    }
-    printf("Todos los procesos hijos han terminado.\n");
-
-
 };
