@@ -1,9 +1,9 @@
 # PRÁCTICA 1: INICIACIÓN A JAVA
 ### Grupo 14 - GM2:
-Mario Sánchez Gómez
-Ángel Moreno Fernández
-Alberto Poveda del Río
-Andrés Moros Rincón
+Mario Sánchez Gómez  
+Ángel Moreno Fernández  
+Alberto Poveda del Río  
+Andrés Moros Rincón  
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen) ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 
